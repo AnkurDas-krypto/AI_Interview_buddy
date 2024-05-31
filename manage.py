@@ -7,7 +7,7 @@ import dotenv
 def main():
     """Run administrative tasks."""
     # Load the .env file
-    dotenv.read_dotenv()
+    dotenv.load_dotenv()
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Resume_hire.settings')
     try:
