@@ -1,0 +1,34 @@
+    {% extends "base.html" %}
+
+    {% block content %}
+    <div class="container">
+        
+        <!-- Initially hidden form -->
+        <div id="examForm" style="display:none;">
+            <form method="post" id="interviewForm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" id="submitBtn">Submit</button>
+            </form>
+        </div>
+        <button onclick="startExam()">Start Exam</button>
+        <p id="timer"></p>
+        <p id="endMessage" style="display:none;">Your time is up, thank you for the exam.</p>
+    </div>
+
+    <script>
+        function startExam() {
+            document.getElementById('examForm').style.display = 'block';  // Show the form
+            var seconds = 40;
+            var timer = setInterval(function() {
+                document.getElementById('timer').textContent = `Time Remaining: ${seconds} seconds`;
+                seconds--;
+                if (seconds < 0) {
+                    clearInterval(timer);
+                    document.getElementById('interviewForm').style.display = 'none';  // Hide the form
+                    document.getElementById('endMessage').style.display = 'block';  // Show the end message
+                }
+            }, 1000);
+        }
+    </script>
+    {% endblock %}

@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Resume Expert</title>
+    <!-- Include Bootstrap CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        body {
+            min-height: 100vh; /* Full viewport height */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .navbar {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            background-color: #000; /* Black navbar */
+        }
+        .navbar .navbar-brand,
+        .navbar .nav-link {
+            color: #fff; /* White text for contrast */
+        }
+        .navbar .nav-link:hover {
+            color: #ccc; /* Lighter shade for hover */
+        }
+        .container {
+            width: 800px;
+            background: white; /* For better readability */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 60px; /* Offset for navbar */
+        }
+        .form-heading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Kronos</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout/">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/status/">Applied Status</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% extends "base.html" %}
+
+    {% block content %}
+    <div class="container">
+        <h1 class="form-heading">ATS Tracking System</h1>
+        <form method="post" enctype="multipart/form-data" class="mb-3">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="jobDescription" class="form-label">Job Description:</label>
+                <textarea class="form-control" id="jobDescription" name="job_description" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="resumeUpload" class="form-label">Upload your resume (PDF):</label>
+                <input type="file" class="form-control" id="resumeUpload" name="resume">
+            </div>
+            {% if resume_name %}
+                <div class="alert alert-info" role="alert">
+                    Uploaded Resume: {{ resume_name }}
+                </div>
+                <input type="hidden" name="resume_name" value="{{ resume_name }}">
+            {% endif %}
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" name="prompt_type" value="analysis" class="btn btn-primary">Tell Me About the Resume</button>
+                <button type="submit" name="prompt_type" value="match" class="btn btn-secondary">Percentage Match</button>
+            </div>
+        </form>
+        {% if response %}
+            <div class="response">
+                <h2>The Response is:</h2>
+                <p>{{ response }}</p>
+            </div>
+        {% endif %}
+    </div>
+    {% endblock %}
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

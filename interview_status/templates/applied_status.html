@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Application Status</h1>
+    <ul class="list-group">
+        {% for status in statuses %}
+        <li class="list-group-item">
+            User: {{ status.name }} - Status: {{ status.status }}
+            {% if status.next_round %}
+            <!-- Button that links to the next round -->
+            <a href="{% url 'next_round' %}" class="btn btn-success mt-2">Proceed to Next Round</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
