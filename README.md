@@ -1,3 +1,3 @@
-![alt text]'images/Home.png'
+![HomePage](images/Home.png)
 
-![alt text]'images/exam.png'
+![Interview Page](images/exam.png)
