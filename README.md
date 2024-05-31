@@ -2,4 +2,4 @@
 
 ![Interview Page](images/exam.png)
 
-![Interview Page](images/result.png)
+![Result Page](images/result.png)
